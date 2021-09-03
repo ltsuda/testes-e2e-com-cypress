@@ -25,3 +25,41 @@ Cypress.Commands.add(
         }
     }
 )
+
+const attachFileHandler = () => cy.get("#file").attachFile("example.json")
+
+Cypress.Commands.add("createNote", (note, attachFile = false) => {
+    cy.visit("/notes/new")
+    cy.get("#content").type(note)
+    cy.contains("button", "Create").click()
+
+    if (attachFile) {
+        attachFileHandler()
+    }
+
+    cy.contains(".list-group-item", note).should("be.visible")
+})
+
+Cypress.Commands.add("editNote", (note, newNote, attachFile = false) => {
+    cy.intercept("GET", "**/notes/**").as("getNote")
+
+    cy.contains(".list-group-item", note).should("be.visible").click()
+    cy.wait("@getNote")
+
+    cy.get("#content").clear().type(newNote)
+
+    if (attachFile) {
+        attachFileHandler()
+    }
+    cy.contains("button", "Save").click()
+
+    cy.contains(".list-group-item", note).should("not.exist")
+    cy.contains(".list-group-item", newNote).should("be.visible")
+})
+
+Cypress.Commands.add("deleteNote", (note) => {
+    cy.contains(".list-group-item", note).should("be.visible").click()
+    cy.contains("button", "Delete").click()
+
+    cy.contains(".list-group-item", note).should("not.exist")
+})
