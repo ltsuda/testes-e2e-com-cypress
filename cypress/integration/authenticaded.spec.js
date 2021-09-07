@@ -30,4 +30,16 @@ describe("Cenários utilizando usuário já autenticado", () => {
             expect(response.state).to.equal("Complete")
         })
     })
+
+    it("Logs out", () => {
+        cy.visit("/")
+        cy.wait("@getNotes")
+        if (Cypress.config("viewportWidth") < Cypress.env("viewportWidthBreakpoint")) {
+            cy.get(".navbar-toggle.collapsed").should("be.visible").click()
+        }
+        /* ==== Generated with Cypress Studio ==== */
+        cy.get(".nav > :nth-child(2) > a").click()
+        cy.get("#email").should("be.visible")
+        /* ==== End Cypress Studio ==== */
+    })
 })
