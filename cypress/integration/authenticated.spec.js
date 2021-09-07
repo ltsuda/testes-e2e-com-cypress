@@ -33,7 +33,7 @@ describe("Cenários utilizando usuário já autenticado", () => {
 
     it("Logs out", { tags: "@desktop-and-tablet" }, () => {
         cy.visit("/")
-        cy.wait(2000)
+        cy.wait("@getNotes")
         /* ==== Generated with Cypress Studio ==== */
         cy.get(".nav > :nth-child(2) > a").click()
         cy.get("#email").should("be.visible")
