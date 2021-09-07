@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 it("Registra um novo usuário utilizando código de confirmação via email", () => {
     const faker = require("faker")
     const email = `${faker.datatype.uuid()}@${Cypress.env("MAILOSAUR_SERVER_ID")}.mailosaur.net`

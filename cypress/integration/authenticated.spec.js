@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe("Cenários utilizando usuário já autenticado", () => {
     beforeEach(() => {
         cy.intercept("GET", "**/notes").as("getNotes")
