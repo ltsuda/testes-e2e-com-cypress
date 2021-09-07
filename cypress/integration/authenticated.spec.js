@@ -31,7 +31,7 @@ describe("Cenários utilizando usuário já autenticado", () => {
         })
     })
 
-    it("Logs out", () => {
+    it("Logs out", { tags: "@desktop-and-tablet" }, () => {
         cy.visit("/")
         cy.wait("@getNotes")
         if (Cypress.config("viewportWidth") < Cypress.env("viewportWidthBreakpoint")) {
